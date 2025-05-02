@@ -76,44 +76,44 @@ function createCursorEffect(e) {
 }
 
 // Function to add music button
-function addMusicButton() {
-    var audio = document.getElementById("bg-music");
+// function addMusicButton() {
+//     var audio = document.getElementById("bg-music");
     
-    if (!document.getElementById("playButton") && audio) {
-        let btn = document.createElement("button");
-        btn.innerText = "Play Music";
-        btn.id = "playButton";
-        btn.style.position = "fixed";
-        btn.style.bottom = "20px";
-        btn.style.right = "20px";
-        btn.style.padding = "10px 20px";
-        btn.style.background = "#ff4757";
-        btn.style.color = "#fff";
-        btn.style.border = "none";
-        btn.style.borderRadius = "5px";
-        btn.style.cursor = "pointer";
-        btn.style.zIndex = "9999";
-        btn.style.boxShadow = "0 4px 15px rgba(255, 71, 87, 0.3)";
-        btn.style.transition = "all 0.3s ease";
+//     if (!document.getElementById("playButton") && audio) {
+//         let btn = document.createElement("button");
+//         btn.innerText = "Play Music";
+//         btn.id = "playButton";
+//         btn.style.position = "fixed";
+//         btn.style.bottom = "20px";
+//         btn.style.right = "20px";
+//         btn.style.padding = "10px 20px";
+//         btn.style.background = "#ff4757";
+//         btn.style.color = "#fff";
+//         btn.style.border = "none";
+//         btn.style.borderRadius = "5px";
+//         btn.style.cursor = "pointer";
+//         btn.style.zIndex = "9999";
+//         btn.style.boxShadow = "0 4px 15px rgba(255, 71, 87, 0.3)";
+//         btn.style.transition = "all 0.3s ease";
         
-        btn.addEventListener("mouseenter", function() {
-            btn.style.background = "#ff6b81";
-            btn.style.transform = "translateY(-3px)";
-        });
+//         btn.addEventListener("mouseenter", function() {
+//             btn.style.background = "#ff6b81";
+//             btn.style.transform = "translateY(-3px)";
+//         });
         
-        btn.addEventListener("mouseleave", function() {
-            btn.style.background = "#ff4757";
-            btn.style.transform = "translateY(0)";
-        });
+//         btn.addEventListener("mouseleave", function() {
+//             btn.style.background = "#ff4757";
+//             btn.style.transform = "translateY(0)";
+//         });
 
-        document.body.appendChild(btn);
+//         document.body.appendChild(btn);
 
-        btn.addEventListener("click", function() {
-            audio.play();
-            btn.remove(); // Remove button after playing
-        });
-    }
-}
+//         btn.addEventListener("click", function() {
+//             audio.play();
+//             btn.remove(); // Remove button after playing
+//         });
+//     }
+// }
 
 // Function to initialize animated background with GIFs
 function initAnimatedBackground() {
@@ -242,3 +242,131 @@ window.onscroll = function() {
         }
     });
 };
+// JavaScript untuk mengelola section iklan
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Mengatur video placeholders agar bisa diklik
+    const videoPlaceholders = document.querySelectorAll('.video-placeholder');
+    
+    videoPlaceholders.forEach(placeholder => {
+      placeholder.addEventListener('click', function() {
+        const parent = this.parentElement;
+        const videoSrc = this.getAttribute('data-video-src') || 'path/to/default-video.mp4';
+        
+        // Buat elemen video baru
+        const video = document.createElement('video');
+        video.controls = true;
+        video.autoplay = true;
+        video.src = videoSrc;
+        video.poster = this.querySelector('img').src;
+        video.className = 'ad-video';
+        
+        // Ganti placeholder dengan video asli
+        parent.replaceChild(video, this);
+      });
+    });
+    
+    // Fungsi untuk rotasi iklan (jika diperlukan)
+    function rotateAds() {
+      const adSlots = document.querySelectorAll('.ad-slot');
+      adSlots.forEach(slot => {
+        // Contoh logika untuk rotasi iklan berdasarkan waktu atau event
+        // Ini bisa diimplementasikan sesuai kebutuhan
+      });
+    }
+    
+    // Contoh mengambil data iklan dari API (bisa disesuaikan)
+    async function fetchAds() {
+      try {
+        // Contoh: const response = await fetch('/api/ads');
+        // const ads = await response.json();
+        // Kemudian tempatkan iklan ke slot yang sesuai
+      } catch (error) {
+        console.error('Error fetching ads:', error);
+      }
+    }
+    
+    // Contoh fungsi untuk admin untuk menambah iklan (untuk implementasi di panel admin)
+    function createAdPlaceholder(config) {
+      // Contoh config: {type: 'image', src: 'image.jpg', link: 'https://...', sponsor: 'Nama'}
+      const adSlot = document.createElement('div');
+      adSlot.className = 'ad-slot';
+      adSlot.setAttribute('data-size', config.size || 'medium');
+      
+      // Buat struktur iklan
+      const adContent = document.createElement('div');
+      adContent.className = 'ad-content';
+      
+      if (config.type === 'video') {
+        const placeholder = document.createElement('div');
+        placeholder.className = 'video-placeholder';
+        placeholder.setAttribute('data-video-src', config.src);
+        
+        const thumbnail = document.createElement('img');
+        thumbnail.src = config.thumbnail || config.src.replace('.mp4', '-thumb.jpg');
+        thumbnail.alt = config.sponsor + ' Video';
+        
+        const playIcon = document.createElement('div');
+        playIcon.className = 'play-icon';
+        playIcon.innerHTML = '<i class="fas fa-play-circle"></i>';
+        
+        placeholder.appendChild(thumbnail);
+        placeholder.appendChild(playIcon);
+        adContent.appendChild(placeholder);
+      } else {
+        // Default: image
+        const img = document.createElement('img');
+        img.src = config.src;
+        img.alt = config.sponsor + ' Advertisement';
+        adContent.appendChild(img);
+      }
+      
+      // Info iklan
+      const adInfo = document.createElement('div');
+      adInfo.className = 'ad-info';
+      
+      const sponsor = document.createElement('span');
+      sponsor.className = 'ad-sponsor';
+      sponsor.textContent = config.sponsor;
+      
+      const cta = document.createElement('a');
+      cta.className = 'ad-cta';
+      cta.href = config.link || '#';
+      cta.textContent = config.ctaText || 'Info';
+      
+      adInfo.appendChild(sponsor);
+      adInfo.appendChild(cta);
+      
+      // Rangkai semuanya
+      adSlot.appendChild(adContent);
+      adSlot.appendChild(adInfo);
+      
+      return adSlot;
+    }
+    
+    // Contoh penggunaan:
+    // const newAd = createAdPlaceholder({
+    //   type: 'image',
+    //   src: 'path/to/ad.jpg',
+    //   sponsor: 'Sponsor Baru',
+    //   link: 'https://example.com',
+    //   ctaText: 'Kunjungi',
+    //   size: 'medium'
+    // });
+    // document.querySelector('.ad-grid').appendChild(newAd);
+    
+    // Fungsi untuk analitik iklan (contoh sederhana)
+    function trackAdClick(adElement, sponsorName) {
+      adElement.addEventListener('click', function() {
+        console.log(`Ad click tracked: ${sponsorName}`);
+        // Disini bisa ditambahkan kode untuk tracking analytics
+        // Misalnya: gtag('event', 'ad_click', {'sponsor': sponsorName});
+      });
+    }
+    
+    // Tracking untuk semua iklan yang ada
+    document.querySelectorAll('.ad-slot').forEach(ad => {
+      const sponsor = ad.querySelector('.ad-sponsor').textContent;
+      trackAdClick(ad.querySelector('.ad-cta'), sponsor);
+    });
+  });

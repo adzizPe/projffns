@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KOMUNITAS FREE FIRE DELI SERDANG</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="icon" href="/assets/logoffds.png" type="image/x-icon">
+    <style>
+        /* Google Fonts Import */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Cinzel:wght@400..900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
+
+        /* Base Styles */
+        :root {
+            --primary-color: #ff6b08;
+            --secondary-color: #0a1128;
+            --text-light: #ffffff;
+            --text-dark: #333333;
+            --accent-color: #ffc30f;
+            --bg-dark: #0f1923;
+            --bg-light: #f1f1f1;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-decoration: none;
+            border: none;
+            outline: none;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated Background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .bg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(15, 25, 35, 0.85);
+            z-index: -1;
+        }
+
+        /* Social Media Sidebar */
+        .social-sidebar {
+            position: fixed;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            z-index: 999;
+        }
+
+        .social-sidebar a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            margin: 5px 0;
+            color: var(--text-light);
+            border-radius: 0 8px 8px 0;
+            font-size: 20px;
+            transition: var(--transition);
+        }
+
+        .social-sidebar a:hover {
+            width: 60px;
+        }
+
+        .social-sidebar .youtube {
+            background-color: #FF0000;
+        }
+
+        .social-sidebar .discord {
+            background-color: #7289DA;
+        }
+
+        .social-sidebar .instagram {
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem 7%;
+            background-color: rgba(10, 17, 40, 0.9);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 999;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(8px);
+        }
+
+        .navbar-logo img {
+            height: 50px;
+        }
+
+        .navbar-nav {
+            display: flex;
+            justify-content: center;
+            margin: 0 auto;
+            font-size: 1.2rem;
+        }
+
+        .navbar-nav a {
+            color: var(--text-light);
+            margin: 0 1rem;
+            font-weight: 500;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .navbar-nav a.active {
+            color: var(--primary-color);
+        }
+
+        .navbar-nav a:hover {
+            color: var(--primary-color);
+        }
+
+        .navbar-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: var(--transition);
+            transform: translateX(-50%);
+        }
+
+        .navbar-nav a:hover::after {
+            width: 100%;
+        }
+
+        .navbar-extra {
+            position: absolute;
+            right: 7%;
+            display: none;
+        }
+
+        .navbar-extra a {
+            color: var(--text-light);
+            font-size: 1.5rem;
+        }
+
+        /* Events Section */
+        .events-section {
+            padding-top: 120px;
+            padding-bottom: 60px;
+        }
+
+        .events-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .events-title {
+            font-size: 4rem;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .events-title span {
+            color: var(--primary-color);
+        }
+
+        .events-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 30px;
+        }
+
+        /* Event Cards */
+        .event-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .event-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .event-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(255, 107, 8, 0.3);
+            border: 1px solid rgba(255, 107, 8, 0.3);
+        }
+
+        .event-banner {
+            width: 100%;
+            height: auto;
+            max-height: 500px;
+            object-fit: cover;
+        }
+
+        .event-content {
+            padding: 30px;
+        }
+
+        .event-title {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .event-description {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        .event-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .detail-item {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .detail-icon {
+            margin-right: 15px;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255, 107, 8, 0.2);
+            border-radius: 50%;
+        }
+
+        .detail-text {
+            font-size: 0.9rem;
+        }
+
+        .detail-text h4 {
+            color: var(--accent-color);
+            margin-bottom: 5px;
+        }
+
+        .event-cta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .highlight-box {
+            padding: 15px 25px;
+            border-radius: 10px;
+            background-color: rgba(255, 195, 15, 0.1);
+            border: 1px solid var(--accent-color);
+        }
+
+        .highlight-box h3 {
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .highlight-box p {
+            font-size: 1rem;
+        }
+
+        .btn-register {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            border-radius: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            transition: var(--transition);
+            font-size: 1.1rem;
+        }
+
+        .btn-register:hover {
+            background-color: #ff8c3f;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255, 107, 8, 0.3);
+        }
+
+        .event-hashtags {
+            margin-top: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .event-hashtag {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .event-hashtag:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--secondary-color);
+            padding: 4rem 7% 2rem;
+            margin-top: 80px;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .footer-logo img {
+            height: 60px;
+            margin-bottom: 1rem;
+        }
+
+        .footer-about p {
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            color: #bbb;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-icons a {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: var(--text-light);
+            transition: var(--transition);
+        }
+
+        .social-icons a:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .footer h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-color);
+        }
+
+        .footer-social p {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            color: #bbb;
+        }
+
+        .footer-social i {
+            margin-right: 1rem;
+            color: var(--primary-color);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            html {
+                font-size: 95%;
+            }
+            
+            .events-title {
+                font-size: 3rem;
+            }
+            
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-about {
+                grid-column: span 2;
+            }
+        }
+
+        @media (max-width: 768px) {
+            html {
+                font-size: 90%;
+            }
+            
+            .navbar-nav {
+                position: absolute;
+                top: 100%;
+                right: -100%;
+                background-color: rgba(10, 17, 40, 0.95);
+                width: 70%;
+                height: 100vh;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 2rem;
+                transition: 0.3s;
+                backdrop-filter: blur(10px);
+                z-index: 999;
+            }
+            
+            .navbar-nav.active {
+                right: 0;
+            }
+            
+            .navbar-nav a {
+                display: block;
+                margin: 1.5rem;
+                padding: 0.5rem;
+                font-size: 1.2rem;
+            }
+            
+            .navbar-extra {
+                display: inline-block;
+            }
+            
+            .navbar {
+                justify-content: space-between;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-about {
+                grid-column: span 1;
+            }
+            
+            .social-sidebar {
+                flex-direction: row;
+                top: auto;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                transform: none;
+                background-color: rgba(10, 17, 40, 0.9);
+                justify-content: space-around;
+                padding: 10px 0;
+                backdrop-filter: blur(8px);
+            }
+
+            .social-sidebar a {
+                width: 40px;
+                height: 40px;
+                margin: 0;
+                border-radius: 50%;
+            }
+            
+            .social-sidebar a:hover {
+                width: 40px;
+                transform: translateY(-5px);
+            }
+            
+            .footer {
+                padding-bottom: 5rem;
+            }
+            
+            .events-title {
+                font-size: 2.5rem;
+            }
+            
+            .event-title {
+                font-size: 2rem;
+            }
+            
+            .event-details {
+                grid-template-columns: 1fr;
+            }
+            
+            .event-cta {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .events-title {
+                font-size: 2rem;
+            }
+            
+            .event-content {
+                padding: 20px;
+            }
+            
+            .event-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg"></div>
+    <div class="bg-overlay"></div>
+
+    <!-- Social Media Sidebar -->
+    <div class="social-sidebar">
+        <a href="https://www.youtube.com/@Deliserdang1" class="youtube"><i class="fab fa-youtube"></i></a>
+        <a href="https://discord.gg/q7MD2hmY" class="discord"><i class="fab fa-discord"></i></a>
+        <a href="https://www.instagram.com/ff.deliserdang/" class="instagram"><i class="fab fa-instagram"></i></a>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="/" class="navbar-logo">
+            <img src="/assets/logoffds.png" alt="FF Deli Serdang Logo">
+        </a>
+  
+        <div class="navbar-nav">
+            <a href="/">Home</a>
+            <a href="index.html#daftarkan">Daftarkan</a>
+            <a href="index.html#informasi">Informasi</a>
+            <a href="" class="active">List Event</a>
+            <a href="index.html#galery">Galery</a>
+            <a href="/leaderboard">Leaderboard</a>
+        </div>
+  
+        <div class="navbar-extra">
+            <a href="#" id="menu"><i class="fas fa-bars"></i></a>
+        </div>
+    </nav>
+
+    <!-- Events Section -->
+    <section class="events-section">
+        <div class="events-header">
+            <h1 class="events-title">LIST <span>EVENT</span></h1>
+            <p class="events-subtitle">JADWAL TURNAMEN FREE FIRE DI DELI SERDANG</p>
+        </div>
+
+        <div class="event-container">
+            <!-- Event Card -->
+            <div class="event-card">
+                <img src="/assets/ffnscqds.jpg" alt="FFNS 2025 Fall City Qualifier" class="event-banner">
+                <div class="event-content">
+                    <h2 class="event-title">FFNS 2025 Fall City Qualifier</h2>
+                    <p class="event-description">
+                        Halo Brayy.. Mana ni yang udh nunggu FFNS DELI SERDANG?? Pasti ga sabar kan kalian pengan jadi Juara di FFNS dan bisa main di panggung GRAND FINAL!
+                        <br><br>
+                        Ini kita sudah Open City Qualifier FFNS:
+                    </p>
+                    
+                    <div class="event-details">
+                        <div class="detail-item">
+                            <div class="detail-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="detail-text">
+                                <h4>Peserta</h4>
+                                <p>Team Terbatas</p>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-item">
+                            <div class="detail-icon">
+                                <i class="fas fa-wallet"></i>
+                            </div>
+                            <div class="detail-text">
+                                <h4>Biaya Pendaftaran</h4>
+                                <p>Gratis</p>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-item">
+                            <div class="detail-icon">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <div class="detail-text">
+                                <h4>Hadiah</h4>
+                                <p>Rp 1.200.000 + Piala dan Ribuan Diamond</p>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-item">
+                            <div class="detail-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="detail-text">
+                                <h4>Lokasi</h4>
+                                <p>V.O.C CAFE - LUBUK PAKAM</p>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-item">
+                            <div class="detail-icon">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                            <div class="detail-text">
+                                <h4>Technical Meeting</h4>
+                                <p>17 MEI 2025</p>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-item">
+                            <div class="detail-icon">
+                                <i class="fas fa-gamepad"></i>
+                            </div>
+                            <div class="detail-text">
+                                <h4>Matchday</h4>
+                                <p>18 MEI 2025</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="event-cta">
+                        <div class="highlight-box">
+                            <h3>Contact Person:</h3>
+                            <p>083131861584 (Dr.Az)</p>
+                        </div>
+                        
+                        <a href="https://ff.garena.co.id/ffns2025fall-deli-serdang" class="btn-register">Daftar Sekarang</a>
+                    </div>
+                    
+                    <div class="event-hashtags">
+                        <span class="event-hashtag">#freefire</span>
+                        <span class="event-hashtag">#freefirenusantaraseries</span>
+                        <span class="event-hashtag">#komunitasfreefiredeliserdang</span>
+                        <span class="event-hashtag">#ffdeliserdang</span>
+                        <span class="event-hashtag">#ffns</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- You can add more event cards here -->
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-about">
+                <a href="/" class="footer-logo">
+                    <img src="/assets/logoffds.png" alt="FF Deli Serdang Logo">
+                </a>
+                <p>Pendiri komunitas ini adalah Muhammad Azra, atau di kenal para gamers free fire di sumatera utara dengan sebutan Dr.Az. Beliau seorang Event Organizer EO dulunya yang terjun membuat event turnamen free fire pada tahun 2020 hingga sekarang mendirikan komunitas free fire deli serdang.</p>
+                <div class="social-icons">
+                    <a href="https://www.youtube.com/@Deliserdang1"><i class="fab fa-youtube"></i></a>
+                    <a href="https://discord.gg/q7MD2hmY"><i class="fab fa-discord"></i></a>
+                    <a href="https://www.instagram.com/ff.deliserdang/"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-social">
+                <h3>Hubungi Kami</h3>
+                <p><i class="fas fa-envelope"></i> info@ffdeliserdang.id</p>
+                <p><i class="fas fa-phone"></i> +628&#@@#0</p>
+                <p><i class="fas fa-map-marker-alt"></i> Deli Serdang, Sumatera Utara, Indonesia</p>
+            </div>
+        </div>
+
+        <div class="copyright">
+            <p>&copy; 2025 Komunitas Free Fire Deli Serdang. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle menu mobile
+        const menuButton = document.querySelector('#menu');
+        const navbarNav = document.querySelector('.navbar-nav');
+
+        menuButton.addEventListener('click', function() {
+            navbarNav.classList.toggle('active');
+        });
+
+        // Menutup menu ketika mengklik di luar menu
+        document.addEventListener('click', function(e) {
+            if(!menuButton.contains(e.target) && !navbarNav.contains(e.target)) {
+                navbarNav.classList.remove('active');
+            }
+        });
+
+        // Animated Background
+        function createParticle() {
+            const animatedBg = document.querySelector('.animated-bg');
+            const particle = document.createElement('div');
+            
+            // Style untuk particle
+            particle.style.position = 'absolute';
+            particle.style.width = Math.random() * 3 + 'px';
+            particle.style.height = particle.style.width;
+            particle.style.background = 'rgba(255, 255, 255, 0.5)';
+            particle.style.borderRadius = '50%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.opacity = Math.random() * 0.5;
+            particle.style.animation = `moveParticle ${Math.random() * 10 + 5}s linear infinite`;
+            
+            // Tambahkan particle ke background
+            animatedBg.appendChild(particle);
+            
+            // Hapus particle setelah animasi berakhir
+            setTimeout(() => {
+                particle.remove();
+            }, 15000);
+        }
+
+        // Create initial particles
+        for (let i = 0; i < 50; i++) {
+            setTimeout(createParticle, i * 100);
+        }
+
+        // Create new particles periodically
+        setInterval(createParticle, 300);
+
+        // Keyframes untuk animasi particle
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes moveParticle {
+                0% {
+                    transform: translateY(0) rotate(0deg);
+                }
+                100% {
+                    transform: translateY(-1000px) rotate(360deg);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
